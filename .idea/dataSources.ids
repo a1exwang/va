@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="SQLite -" uuid="473ef915-69e0-4d04-a757-ac3cf3eecb26">
+    <database-info product="SQLite" version="3.8.9" jdbc-version="2.1" driver-name="SQLiteJDBC" driver-version="native"/>
+    <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed"/>
+    <schema name="" catalog=""/>
+    <table name="items" schema="" catalog="" type="TABLE">
+      <column name="description" sqlType="" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
+      <column name="designation" sqlType="" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
+      <column name="artist" sqlType="" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
+      <column name="image" sqlType="" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
+      <column name="title" sqlType="" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
+      <column name="link" sqlType="" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
+    </table>
+  </data-source>
+</component>
