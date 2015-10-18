@@ -4,13 +4,25 @@
     <database-info product="SQLite" version="3.8.9" jdbc-version="2.1" driver-name="SQLiteJDBC" driver-version="native"/>
     <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed"/>
     <schema name="" catalog=""/>
-    <table name="items" schema="" catalog="" type="TABLE">
+    <table name="artists" schema="" catalog="" type="TABLE">
+      <column name="name" sqlType="" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
+    </table>
+    <table name="companies" schema="" catalog="" type="TABLE">
+      <column name="name" sqlType="" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
+    </table>
+    <table name="genres" schema="" catalog="" type="TABLE">
+      <column name="name" sqlType="" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
+    </table>
+    <table name="videos" schema="" catalog="" type="TABLE">
+      <column name="distribution_date" sqlType="" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
+      <column name="cover_path" sqlType="" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
       <column name="description" sqlType="" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
       <column name="designation" sqlType="" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
       <column name="artist" sqlType="" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="image" sqlType="" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
+      <column name="stars_text" sqlType="" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
       <column name="title" sqlType="" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
-      <column name="link" sqlType="" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
+      <column name="video_length" sqlType="" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
+      <column name="genres_text" sqlType="" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
     </table>
   </data-source>
 </component>

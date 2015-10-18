@@ -7,13 +7,26 @@
 
 import scrapy
 
-class VaItem(scrapy.Item):
+class Video(scrapy.Item):
     _id = scrapy.Field()
     title = scrapy.Field()
-    link = scrapy.Field()
     designation = scrapy.Field()
     description = scrapy.Field()
-    artist = scrapy.Field()
-    image = scrapy.Field()
+    video_length = scrapy.Field()
+    distribution_date = scrapy.Field()
+    cover_path = scrapy.Field()
+    stars_text = scrapy.Field()
+    genres_text = scrapy.Field()
 
+class Artist(scrapy.Item):
+    _id = scrapy.Field()
+    name = scrapy.Field()
+
+class Company(scrapy.Item):
+    _id = scrapy.Field()
+    name = scrapy.Field()
+
+class Genre(scrapy.Item):
+    _id = scrapy.Field()
+    name = scrapy.Field()
 
