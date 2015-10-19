@@ -63,7 +63,11 @@ NEWSPIDER_MODULE = 'va.spiders'
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     'va.pipelines.VaPipeline': 300,
+    'va.pipelines.CoverFilePipeline': 1,
 }
+
+# Download path
+FILES_STORE = './files'
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html

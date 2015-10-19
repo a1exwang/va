@@ -5,7 +5,8 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 from scrapy.exceptions import DropItem
-from va.items import Video, Artist, Company, Genre
+from scrapy.pipelines.files import FilesPipeline
+from va.items import *
 import dblite
 
 class VaPipeline(object):
@@ -13,6 +14,7 @@ class VaPipeline(object):
         self.videos = None
         self.artists = None
         self.companies = None
+        self.genres = None
 
     def open_spider(self, spider):
         self.videos = dblite.open(Video, 'sqlite://./db.sqlite3:videos', autocommit=True)
@@ -23,6 +25,12 @@ class VaPipeline(object):
     def close_spider(self, spider):
         self.videos.commit()
         self.videos.close()
+        self.artists.commit()
+        self.artists.close()
+        self.companies.commit()
+        self.companies.close()
+        self.genres.commit()
+        self.genres.close()
 
     def process_item(self, item, spider):
         if isinstance(item, Video):
@@ -45,7 +53,45 @@ class VaPipeline(object):
                 self.genres.put(item)
             except dblite.DuplicateItem:
                 raise DropItem("Duplicate genres found")
-        else:
-            raise DropItem("Unkown item type ")
+        elif isinstance(item, CoverPicture):
+            pass
+        #     try:
+        #         pass
+        #     except dblite.DuplicateItem:
+        #         raise DropItem("Duplicate covor found")
+        #else:
+        #    raise DropItem("Unkown item type ")
 
         return item
+
+class CoverFilePipeline(FilesPipeline):
+    def __init__(self, store_uri):
+        super(CoverFilePipeline, self).__init__(store_uri)
+        self.covers = None
+
+    def open_spider(self, spider):
+        super(CoverFilePipeline, self).open_spider(spider)
+        self.covers = dblite.open(CoverPicture, 'sqlite://./db.sqlite3:covers', autocommit=True)
+
+    def close_spider(self, spider):
+        super(CoverFilePipeline, self).close_spider(spider)
+        self.covers.commit()
+        self.covers.close()
+
+    def get_media_requests(self, item, info):
+        if isinstance(item, CoverPicture):
+            yield scrapy.Request(item['file_url'])
+
+    def item_completed(self, results, item, info):
+        if isinstance(item, CoverPicture):
+            result = results[0]
+            if not result[0]:
+                raise DropItem("Item contains no files")
+            item['file_path'] = result[1]['path']
+            try:
+                self.covers.put(item)
+            except:
+                raise DropItem("Duplicate covor found")
+            return item
+        else:
+            return None

@@ -6,10 +6,11 @@ from va.items import *
 class JavSpider(scrapy.Spider):
     name = "jav"
     allowed_domains = ["www.javlibrary.com"]
-    base_url = "http://www.javlibrary.com/cn/vl_newrelease.php?mode=&page="
+    base_url = "http://www.javlibrary.com/cn/vl_update.php?mode=&page="
     start_urls = [
         base_url + "1"
     ]
+    max_pages = 250
 
     def parse(self, response, page=1):
         video_tags = response.selector.xpath(
@@ -21,12 +22,15 @@ class JavSpider(scrapy.Spider):
             link = response.urljoin(content.xpath('@href')[0].extract())
 
             print page
-            yield scrapy.Request(link, partial(self.parse_inner, title=title))
+            yield scrapy.Request(link, partial(self.parse_video, title=title))
 
-            url = JavSpider.base_url + str(page+1)
-            yield(scrapy.Request(url, callback=partial(self.parse, page=page+1)))
+            page += 1
+            if page > 250:
+                return
+            url = JavSpider.base_url + str(page)
+            yield(scrapy.Request(url, callback=partial(self.parse, page=page)))
 
-    def parse_inner(self, response, title):
+    def parse_video(self, response, title):
         content = response.selector.xpath(
             "//body/div[@id='content']/div[@id='rightcolumn']")
 
@@ -79,12 +83,16 @@ class JavSpider(scrapy.Spider):
 
         stars_str = ""
         for star in stars:
-            star_str= star.xpath("text()").extract()[0]
+            star_str = star.xpath("text()").extract()[0]
             stars_str += star_str + "  "
 
             star_item = Artist()
             star_item['name'] = star_str
             yield star_item
+
+        cover_file_item = CoverPicture()
+        cover_file_item['file_url'] = cover_path
+        yield cover_file_item
 
         print(code)
 

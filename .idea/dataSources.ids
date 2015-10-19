@@ -10,6 +10,10 @@
     <table name="companies" schema="" catalog="" type="TABLE">
       <column name="name" sqlType="" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
     </table>
+    <table name="covers" schema="" catalog="" type="TABLE">
+      <column name="file_url" sqlType="" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
+      <column name="file_path" sqlType="" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
+    </table>
     <table name="genres" schema="" catalog="" type="TABLE">
       <column name="name" sqlType="" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
     </table>

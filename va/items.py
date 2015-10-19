@@ -30,3 +30,7 @@ class Genre(scrapy.Item):
     _id = scrapy.Field()
     name = scrapy.Field()
 
+class CoverPicture(scrapy.Item):
+    _id = scrapy.Field()
+    file_path = scrapy.Field()
+    file_url = scrapy.Field()
